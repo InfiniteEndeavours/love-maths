@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-
+    // Sets default game to run on browser load
     runGame("addition");
 });
 
@@ -32,7 +32,11 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === 'multiply') {
         displayMultiplyQuestion(num1, num2);
-    } else {
+    } else if (gameType === 'subtract'){
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === 'division') {
+        displayDivisionQuestion(num1, num2);
+    }else {
         alert(`Unknown Game Type: ${gameType}`);
         throw `Unknown Game Type: ${gameType}. Aborting!`;
     }
@@ -74,6 +78,10 @@ function calculateCorrectAnswer() {
         return [operand1 + operand2, "addition"];
     } else if (operator === 'x') {
         return [operand1 * operand2, "multiply"];
+    }else if (operator === '-') {
+        return [operand1 - operand2, "subtract"];
+    }else if (operator === '/') {
+        return [Math.round(operand1 / operand2 * 100) / 100, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw (`Unimplemented operator ${operator}. Aborting!`);
@@ -107,6 +115,12 @@ function displayAdditionQuestion(operand1, operand2) {
 
 function displaySubtractQuestion(operand1, operand2) {
 
+    // if operand1 is bigger than 2, display op1, else display op2.
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "-";
+    console.log("Operand 1: " +operand1)
+    console.log("Operant 2: " +operand2)
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
@@ -116,5 +130,7 @@ function displayMultiplyQuestion(operand1, operand2) {
 }
 
 function displayDivisionQuestion(operand1, operand2) {
-
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 }
